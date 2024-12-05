@@ -1,4 +1,4 @@
-package com.sooin.miniproject.utils;
+package com.sooin.miniproject.provider;
 
 import java.security.Key;
 import java.util.Date;
@@ -11,7 +11,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 
 @Component
-public class JwtUtil {
+public class JwtProvider {
 
     private final Key SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
     private final long EXPIRATION_TIME = 1000 * 60 * 60;
