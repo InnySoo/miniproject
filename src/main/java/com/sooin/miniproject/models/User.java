@@ -1,5 +1,7 @@
 package com.sooin.miniproject.models;
 
+import java.sql.Timestamp;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,5 +13,6 @@ public class User {
     private String userName;
     private String userPassword;
     private String userStatus;
+    private Timestamp createDateTime;
 
 }
