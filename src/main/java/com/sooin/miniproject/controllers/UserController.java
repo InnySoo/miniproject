@@ -1,36 +1,30 @@
 package com.sooin.miniproject.controllers;
 
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.sooin.miniproject.Utils.JwtUtil;
 import com.sooin.miniproject.models.User;
 import com.sooin.miniproject.services.UserService;
-import com.sooin.miniproject.provider.JwtProvider;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
+
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/users")
+@RequiredArgsConstructor
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+    private final JwtUtil jwtUtil;
 
-    @Autowired
-    private JwtProvider jwtProvider;
-
-    @PostMapping("/login")
-    public String login(@RequestParam String userName, @RequestParam String userPassword) {
-        User user = userService.findByUserName(userName);
-        if (user != null && user.getUserPassword().equals(userPassword)) {
-            return jwtProvider.generateToken(userName);
-        }
-        throw new RuntimeException("Invalid credentials");
+    @GetMapping("/")
+    public User getSignInUser(HttpServletRequest request) {
+        String token = request.getHeader("Authorization").replace("Bearer ", "");
+        String userName = jwtUtil.validateToken(token);
+        return userService.findUserByUserName(userName);
     }
-
-    @GetMapping("/validate")
-    public String validate(@RequestParam String token) {
-        String userName = jwtProvider.validate(token);
-        if (userName != null) {
-            return "Token is valid for user: " + userName;
-        }
-        throw new RuntimeException("Invalid or expired token");
-    }
+    
 }

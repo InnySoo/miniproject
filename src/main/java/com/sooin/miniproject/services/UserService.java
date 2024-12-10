@@ -1,19 +1,24 @@
 package com.sooin.miniproject.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sooin.miniproject.mappers.UserMapper;
 import com.sooin.miniproject.models.User;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
-    @Autowired
-    private UserMapper userMapper;
+    private final UserMapper userMapper;
 
-    public User findByUserName(String userName) {
-        return userMapper.findByUserName(userName);
+    public User findUserByUserName(String userName) {
+        User user = userMapper.findByUserName(userName);
+        if (user == null) {
+            throw new RuntimeException("User not found: " + userName);
+        }
+        return user;
     }
     
 }

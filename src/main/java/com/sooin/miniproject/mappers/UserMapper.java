@@ -6,9 +6,5 @@ import com.sooin.miniproject.models.User;
 
 @Mapper
 public interface UserMapper {
-    
-    User findByUserId(int userId);
-
     User findByUserName(String userName);
-
 }

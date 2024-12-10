@@ -2,11 +2,9 @@ package com.sooin.miniproject.models;
 
 import java.sql.Timestamp;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class User {
     
     private int userId;

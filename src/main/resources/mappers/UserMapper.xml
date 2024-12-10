@@ -5,10 +5,6 @@
 
 <mapper namespace="com.sooin.miniproject.mappers.UserMapper">
 
-    <select id="findByUserId" parameterType="int" resultType="com.sooin.miniproject.models.User">
-        SELECT * FROM Users WHERE UserId = #{userId}
-    </select>
-
     <select id="findByUserName" parameterType="string" resultType="com.sooin.miniproject.models.User">
         SELECT * FROM Users WHERE UserName = #{userName}
     </select>
